@@ -1,0 +1,27 @@
+{{- if .Values.terraformHealth.enabled }}
+---
+apiVersion: comcast.github.io/v1
+kind: KuberhealthyCheck
+metadata:
+  name: terraform-health
+spec:
+  runInterval: {{ .Values.terraformHealth.runInterval }}
+  timeout: {{ .Values.terraformHealth.timeout }}
+  podSpec:
+    containers:
+      - name: terraform-health
+        image: {{ .Values.terraformHealth.image.repository }}
+        env:
+{{- range $pkey, $pval := .Values.terraformHealth.env }}
+        - name: {{ $pkey }}
+          value: {{ quote $pval }}
+{{- end }}
+        resources:
+          requests:
+            cpu: 25m
+            memory: 15Mi
+          limits:
+            cpu: 40m
+        restartPolicy: Never
+    terminationGracePeriodSeconds: 60
+{{- end }}

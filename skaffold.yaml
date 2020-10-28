@@ -1,0 +1,19 @@
+apiVersion: skaffold/v2beta8
+kind: Config
+metadata:
+  name: jx-kh-check
+build:
+  artifacts:
+    - image: mellardc/terraform-health
+      context: cmd/terraform-drift
+      docker:
+deploy:
+  helm:
+    releases:
+      - name: jx-kh-check
+        chartPath: charts/jx-kh-check
+        artifactOverrides:
+          terraformHealth:
+            image:
+              repository: mellardc/terraform-health
+        namespace: kuberhealthy
