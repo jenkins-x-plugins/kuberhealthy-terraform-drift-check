@@ -1,5 +1,5 @@
 FROM scratch
 
-ENTRYPOINT ["/jx-kh-check"]
+ENTRYPOINT ["/jx-terraform-drift-check"]
 
-COPY ./build/linux/jx-kh-check /jx-kh-check
+COPY ./build/linux/jx-terraform-drift-check /jx-terraform-drift-check
