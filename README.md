@@ -1,12 +1,28 @@
-# jx-kh-check
+# terraform-drift-check
 
-[![Documentation](https://godoc.org/github.com/jenkins-x-plugins/jx-kh-check?status.svg)](https://pkg.go.dev/mod/github.com/jenkins-x-plugins/jx-kh-check)
-[![Go Report Card](https://goreportcard.com/badge/github.com/jenkins-x-plugins/jx-kh-check)](https://goreportcard.com/report/github.com/jenkins-x-plugins/jx-kh-check)
-[![Releases](https://img.shields.io/github/release-pre/jenkins-x-plugins/jx-kh-check.svg)](https://github.com/jenkins-x-plugins/jx-kh-check/releases)
-[![LICENSE](https://img.shields.io/github/license/jenkins-x-plugins/jx-kh-check.svg)](https://github.com/jenkins-x-plugins/jx-kh-check/blob/master/LICENSE)
-[![Slack Status](https://img.shields.io/badge/slack-join_chat-white.svg?logo=slack&style=social)](https://slack.k8s.io/)
+Custom kuberhealthy checker for reporting on Terraform drift.
 
-Custom health checkers for Jenkins X to be used by kuberhealthy
+## Prerequisites
+
+[Kuberhealthy](https://github.com/Comcast/kuberhealthy) should be installed in your Kubernetes cluster. 
+
+## Installation
+
+Install the Terraform drift check via the helm chart in `./charts/terraform-drift-check`
+
+## Configuration
+
+| Parameter | Description | Default |
+| --------- | ----------- | ------- |
+| `terraformHealth.enabled` | Enable Terraform drift health check | `true` |
+| `terraformHealth.image.repository` | Image repository | `mellardc/terraform-health` |
+| `terraformHealth.runInternal` | The interval that Kuberhealthy will run your check on | `300s` |
+| `terraformHealth.timeout` | After this much time, Kuberhealthy will kill your check and consider it "failed" | `5m` |
+| `terraformHealth.git.url`  | Url of Git repo containing Terraform config  |  |
+| `terraformHealth.git.username` | Git user to authenticate to Git repo  containing Terraform config | |
+| `terraformHealth.secretEnv.GIT_TOKEN` | Git token to authenticate to Git repo containing Terraform module | |
+| `terraformHealth.secretEnv` | Optional secret environment variables that will be made available as environment variables to Terraform | |
+| `terraformHealth.env` | Optional environment settings for Terraform | `[]` |
 
 # Build
 

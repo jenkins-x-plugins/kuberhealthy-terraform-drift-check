@@ -1,14 +1,16 @@
 terraformHealth:
   enabled: true
   image:
-    repository: tfjxlegibledog.azurecr.io/helm/jx-kh-check
+    repository: tfjxlegibledog.azurecr.io/helm/terraform-drift
   runInterval: 300s # The interval that Kuberhealthy will run your check on
   timeout: 5m # After this much time, Kuberhealthy will kill your check and consider it "failed"
-  cluster:
-    enabled: false
-  env:
-    GIT_TOKEN: edd6b476b2b180377f23e810c59a2f28eefcca4b
-    ARM_SUBSCRIPTION_ID: 6973a0e5-ce16-480c-935b-3f8aebf93f84
-    ARM_CLIENT_ID: ba864fb9-403a-4549-b330-68d8de43a6c2
-    ARM_CLIENT_SECRET: _T2OxL53t6.ZQJpe1wAb~cm.1JInLd7QxP
-    ARM_TENANT_ID: df8eac07-e025-4521-80e8-6b66838cb092
+  git:
+    url:
+    username:
+  secretEnv:
+    GIT_TOKEN: # (Mandatory) Token to authenticate to .Values.git.url
+#    ARM_CLIENT_SECRET: # (Optional) For Azure RM Terraform Provider
+#    ARM_SUBSCRIPTION_ID: # (Optional) For Azure RM Terraform Provider
+#    ARM_CLIENT_ID: # (Optional) For Azure RM Terraform Provider
+#    ARM_TENANT_ID: # (Optional) For Azure RM Terraform Provider
+  env: []

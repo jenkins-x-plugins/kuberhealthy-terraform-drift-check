@@ -7,5 +7,5 @@ RUN wget https://releases.hashicorp.com/terraform/${TERRAFORM}/terraform_${TERRA
   unzip terraform_${TERRAFORM}_linux_amd64.zip && \
   chmod +x terraform && mv terraform /usr/bin/terraform && rm terraform_${TERRAFORM}_linux_amd64.zip
 
-COPY build/linux/terraform-drift /
-ENTRYPOINT ["/terraform-drift"]
+COPY build/linux/terraform-drift-check /
+ENTRYPOINT ["/terraform-drift-check"]

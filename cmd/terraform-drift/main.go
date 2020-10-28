@@ -15,8 +15,8 @@ import (
 )
 
 const (
-	gitProviderURL  = "https://github.com/mellard-org/jx3-azure-terraform"
-	UserName        = "chris-mellard"
+	gitProviderURL  = "GIT_URL"
+	gitUserName     = "GIT_USER"
 	gitToken        = "GIT_TOKEN"
 	terraformBinary = "terraform"
 )
@@ -30,11 +30,13 @@ type Options struct {
 
 func newOptions() *Options {
 	gitToken := os.Getenv(gitToken)
+	gitUrl := os.Getenv(gitProviderURL)
+	gitUser := os.Getenv(gitUserName)
 	return &Options{
 		gitClient: cli.NewCLIClient("", nil),
 		gitToken:  gitToken,
-		gitUrl:    gitProviderURL,
-		gitUser:   UserName,
+		gitUrl:    gitUrl,
+		gitUser:   gitUser,
 	}
 }
 

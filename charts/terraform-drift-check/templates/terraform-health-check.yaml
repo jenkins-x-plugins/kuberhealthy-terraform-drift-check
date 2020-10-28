@@ -12,10 +12,19 @@ spec:
       - name: terraform-health
         image: {{ .Values.terraformHealth.image.repository }}
         env:
-{{- range $pkey, $pval := .Values.terraformHealth.env }}
+        - name: GIT_USER
+          value: {{ .Values.terraformHealth.git.username }}
+        - name: GIT_URL
+          value: {{ .Values.terraformHealth.git.url }}
+        {{- range $pkey, $pval := .Values.terraformHealth.env }}
         - name: {{ $pkey }}
           value: {{ quote $pval }}
-{{- end }}
+        {{- end }}
+        {{- if .Values.terraformHealth.secretEnv }}
+        envFrom:
+          - secretRef:
+              name: terraformdrift
+        {{- end }}
         resources:
           requests:
             cpu: 25m

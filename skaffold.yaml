@@ -1,7 +1,7 @@
 apiVersion: skaffold/v2beta8
 kind: Config
 metadata:
-  name: jx-kh-check
+  name: terraform-drift
 build:
   artifacts:
     - image: mellardc/terraform-health
@@ -10,10 +10,15 @@ build:
 deploy:
   helm:
     releases:
-      - name: jx-kh-check
-        chartPath: charts/jx-kh-check
+      - name: terraform-drift
+        chartPath: charts/terraform-drift-check
         artifactOverrides:
           terraformHealth:
             image:
               repository: mellardc/terraform-health
+        setValueTemplates:
+          terraformHealth:
+            secretEnv:
+              GIT_TOKEN: "{{.GIT_TOKEN}}"
+              ARM_CLIENT_SECRET: "{{.ARM_CLIENT_SECRET}}"
         namespace: kuberhealthy
