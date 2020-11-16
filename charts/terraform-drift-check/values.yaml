@@ -1,7 +1,8 @@
 terraformHealth:
   enabled: true
   image:
-    repository: tfjxlegibledog.azurecr.io/helm/terraform-drift
+    repository: gcr.io/jenkinsxio/terraform-drift
+    tag:
   runInterval: 300s # The interval that Kuberhealthy will run your check on
   timeout: 5m # After this much time, Kuberhealthy will kill your check and consider it "failed"
   git:
