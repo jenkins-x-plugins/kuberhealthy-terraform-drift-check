@@ -10,7 +10,7 @@ spec:
   podSpec:
     containers:
       - name: terraform-health
-        image: {{ .Values.terraformHealth.image.repository }}
+        image: {{ .Values.terraformHealth.image.repository }}:{{ .Values.terraformHealth.image.tag }}
         env:
         - name: GIT_USER
           value: {{ .Values.terraformHealth.git.username }}

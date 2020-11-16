@@ -3,7 +3,7 @@ rwildcard=$(wildcard $1$2) $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2))
 
 SHELL := /bin/bash
 NAME = terraform-drift-check
-BINARY_NAME = jx-terraform-drift-check
+BINARY_NAME = terraform-drift-check
 GO := GO111MODULE=on go
 GO_NOMOD :=GO111MODULE=off go
 MAIN_SRC_FILE=main.go
