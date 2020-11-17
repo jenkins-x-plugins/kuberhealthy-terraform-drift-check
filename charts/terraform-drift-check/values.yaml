@@ -1,14 +1,15 @@
 terraformHealth:
   enabled: true
   image:
-    repository: tfjxlegibledog.azurecr.io/helm/terraform-drift
+    repository: gcr.io/jenkinsxio/kuberhealthy-terraform-drift-check
+    tag: latest
   runInterval: 300s # The interval that Kuberhealthy will run your check on
   timeout: 5m # After this much time, Kuberhealthy will kill your check and consider it "failed"
   git:
-    url:
-    username:
+    url: ""
+    username: ""
   secretEnv:
-    GIT_TOKEN: # (Mandatory) Token to authenticate to .Values.git.url
+#    GIT_TOKEN: # (Mandatory) Token to authenticate to .Values.git.url
 #    ARM_CLIENT_SECRET: # (Optional) For Azure RM Terraform Provider
 #    ARM_SUBSCRIPTION_ID: # (Optional) For Azure RM Terraform Provider
 #    ARM_CLIENT_ID: # (Optional) For Azure RM Terraform Provider

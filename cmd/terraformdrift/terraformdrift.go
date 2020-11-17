@@ -1,4 +1,4 @@
-package main
+package terraformdrift
 
 import (
 	"fmt"
@@ -40,7 +40,7 @@ func newOptions() *Options {
 	}
 }
 
-func main() {
+func Run() {
 
 	o := newOptions()
 	if khErrors := o.findErrors(); khErrors != nil {
