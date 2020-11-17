@@ -2,8 +2,8 @@
 rwildcard=$(wildcard $1$2) $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2))
 
 SHELL := /bin/bash
-NAME = terraform-drift-check
-BINARY_NAME = jx-terraform-drift-check
+NAME = kuberhealthy-terraform-drift-check
+BINARY_NAME = kh-tf-drift
 GO := GO111MODULE=on go
 GO_NOMOD :=GO111MODULE=off go
 MAIN_SRC_FILE=main.go
@@ -22,16 +22,12 @@ export VERSION ?= $(shell echo "$$(git for-each-ref refs/tags/ --count=1 --sort=
 
 # Full build flags used when building binaries. Not used for test compilation/execution.
 BUILDFLAGS :=  -ldflags \
-  " -X $(ROOT_PACKAGE)/pkg/cmd/version.Version=$(VERSION)\
-		-X github.com/jenkins-x/jx-pipeline/pkg/cmd/version.Version=$(VERSION)\
-		-X $(ROOT_PACKAGE)/pkg/cmd/version.Revision='$(REV)'\
-		-X $(ROOT_PACKAGE)/pkg/cmd/version.Branch='$(BRANCH)'\
-		-X $(ROOT_PACKAGE)/pkg/cmd/version.BuildDate='$(BUILD_DATE)'\
-		-X $(ROOT_PACKAGE)/pkg/cmd/version.GoVersion='$(GO_VERSION)'\
+  " -X $(ROOT_PACKAGE)/pkg/version.Version=$(VERSION)\
+		-X $(ROOT_PACKAGE)/pkg/version.Revision='$(REV)'\
+		-X $(ROOT_PACKAGE)/pkg/version.Branch='$(BRANCH)'\
+		-X $(ROOT_PACKAGE)/pkg/version.BuildDate='$(BUILD_DATE)'\
+		-X $(ROOT_PACKAGE)/pkg/version.GoVersion='$(GO_VERSION)'\
 		$(BUILD_TIME_CONFIG_FLAGS)"
-
-# Some tests expect default values for version.*, so just use the config package values there.
-TEST_BUILDFLAGS :=  -ldflags "$(BUILD_TIME_CONFIG_FLAGS)"
 
 .PHONY: list
 list: ## List all make targets
@@ -82,15 +78,23 @@ all: fmt lint
 
 .PHONY: test
 test: ## Run tests with the "unit" build tag
-	KUBECONFIG=/cluster/connections/not/allowed $(GO) test --tags=unit -failfast -short ./... $(TEST_BUILDFLAGS)
+	KUBECONFIG=/cluster/connections/not/allowed $(GO) test --tags=unit -failfast -short ./...
 
 .PHONY: build
 build: $(GO_DEPENDENCIES) clean ## Build jx-labs binary for current OS
 	$(GO) build $(BUILDFLAGS) -o build/$(BINARY_NAME) $(MAIN_SRC_FILE)
 
-.PHONY: linux
 linux: ## Build for Linux
-	$(GO) build $(BUILDFLAGS) -o build/linux/$(BINARY_NAME) $(MAIN_SRC_FILE)
+	CGO_ENABLED=$(CGO_ENABLED) GOOS=linux GOARCH=amd64 $(GO) build $(BUILDFLAGS) -o build/linux/$(BINARY_NAME) $(MAIN_SRC_FILE)
 	chmod +x build/linux/$(BINARY_NAME)
 
+arm: ## Build for ARM
+	CGO_ENABLED=$(CGO_ENABLED) GOOS=linux GOARCH=arm $(GO) build $(BUILDFLAGS) -o build/arm/$(BINARY_NAME) $(MAIN_SRC_FILE)
+	chmod +x build/arm/$(BINARY_NAME)
 
+win: ## Build for Windows
+	CGO_ENABLED=$(CGO_ENABLED) GOOS=windows GOARCH=amd64 $(GO) build $(BUILDFLAGS) -o build/win/$(BINARY_NAME)-windows-amd64.exe $(MAIN_SRC_FILE)
+
+darwin: ## Build for OSX
+	CGO_ENABLED=$(CGO_ENABLED) GOOS=darwin GOARCH=amd64 $(GO) build $(BUILDFLAGS) -o build/darwin/$(BINARY_NAME) $(MAIN_SRC_FILE)
+	chmod +x build/darwin/$(BINARY_NAME)

@@ -1,5 +1,5 @@
 CHART_REPO := gs://jenkinsxio/charts
-NAME := jx-kh-check
+NAME := kh-tf-drift
 
 build: clean
 	rm -rf Chart.lock
@@ -21,6 +21,7 @@ clean:
 
 release: clean
 	sed -i -e "s/version:.*/version: $(VERSION)/" Chart.yaml
+	sed -i -e "s/appVersion:.*/appVersion: $(VERSION)/" Chart.yaml
 	sed -i -e "s/tag:.*/tag: $(VERSION)/" values.yaml
 
 	helm dependency build
