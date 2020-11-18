@@ -1,5 +1,5 @@
 CHART_REPO := gs://jenkinsxio/charts
-NAME := kh-tf-drift
+NAME := kuberhealthy-terraform-drift-check
 
 build: clean
 	rm -rf Chart.lock
