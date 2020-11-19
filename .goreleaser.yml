@@ -9,7 +9,7 @@ builds:
   - id: terraform-drift-check
     # Path to main.go file or main package.
     # Default is `.`.
-    main: ./cmd/terraform-drift/main.go
+    main: ./main.go
 
     # Binary name.
     # Can be a path (e.g. `bin/app`) to wrap the binary in a directory.
