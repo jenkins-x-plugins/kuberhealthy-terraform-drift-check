@@ -16,6 +16,7 @@ GO_DEPENDENCIES := $(call rwildcard,pkg/,*.go) $(call rwildcard,cmd/,*.go)
 
 export BRANCH     := $(shell git rev-parse --abbrev-ref HEAD 2> /dev/null  || echo 'unknown')
 export BUILD_DATE := $(shell date +%Y%m%d-%H:%M:%S)
+CGO_ENABLED = 0
 
 # set dev version unless VERSION is explicitly set via environment
 export VERSION ?= $(shell echo "$$(git for-each-ref refs/tags/ --count=1 --sort=-version:refname --format='%(refname:short)' 2>/dev/null)-dev+$(REV)" | sed 's/^v//')
@@ -26,8 +27,7 @@ BUILDFLAGS :=  -ldflags \
 		-X $(ROOT_PACKAGE)/pkg/version.Revision='$(REV)'\
 		-X $(ROOT_PACKAGE)/pkg/version.Branch='$(BRANCH)'\
 		-X $(ROOT_PACKAGE)/pkg/version.BuildDate='$(BUILD_DATE)'\
-		-X $(ROOT_PACKAGE)/pkg/version.GoVersion='$(GO_VERSION)'\
-		$(BUILD_TIME_CONFIG_FLAGS)"
+		-X $(ROOT_PACKAGE)/pkg/version.GoVersion='$(GO_VERSION)'"
 
 .PHONY: list
 list: ## List all make targets
