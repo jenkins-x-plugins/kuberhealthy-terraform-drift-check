@@ -33,4 +33,7 @@ spec:
             cpu: 40m
         restartPolicy: Never
     terminationGracePeriodSeconds: 60
+    {{- if .Values.terraformHealth.serviceAccountName }}
+    serviceAccountName: {{ .Values.terraformHealth.serviceAccountName  }}
+    {{- end }}
 {{- end }}
