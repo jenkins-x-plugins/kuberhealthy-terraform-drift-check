@@ -2,7 +2,7 @@ terraformHealth:
   enabled: true
   image:
     repository: gcr.io/jenkinsxio/kuberhealthy-terraform-drift-check
-    tag: latest
+    tag: 0.1.2
   runInterval: 30m # The interval that Kuberhealthy will run your check on
   timeout: 10m # After this much time, Kuberhealthy will kill your check and consider it "failed"
   git:

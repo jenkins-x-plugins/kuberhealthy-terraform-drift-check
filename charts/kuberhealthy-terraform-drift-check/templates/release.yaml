@@ -1,0 +1,37 @@
+{{- if .Capabilities.APIVersions.Has "jenkins.io/v1/Release" }}
+apiVersion: jenkins.io/v1
+kind: Release
+metadata:
+  creationTimestamp: "2021-03-01T11:58:30Z"
+  deletionTimestamp: null
+  name: '{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}'
+spec:
+  commits:
+  - author:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    branch: master
+    committer:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    message: |
+      fix: release pipeline
+    sha: da2f39e7ccf58c476d4370e2ba2c1212e1ab1fc9
+  - author:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    branch: master
+    committer:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    message: |
+      fix: release pipeline
+    sha: a211ad4590616af002452503e5c1d616a8c4b28e
+  gitHttpUrl: https://github.com/jenkins-x-plugins/kuberhealthy-terraform-drift-check
+  gitOwner: jenkins-x-plugins
+  gitRepository: kuberhealthy-terraform-drift-check
+  name: '{{ .Chart.Name }}'
+  version: 0.1.2
+status: {}
+ 
+{{- end }}
