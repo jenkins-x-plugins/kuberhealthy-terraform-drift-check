@@ -1,0 +1,77 @@
+{{- if .Capabilities.APIVersions.Has "jenkins.io/v1/Release" }}
+apiVersion: jenkins.io/v1
+kind: Release
+metadata:
+  creationTimestamp: "2021-03-01T11:51:40Z"
+  deletionTimestamp: null
+  name: '{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}'
+spec:
+  commits:
+  - author:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    branch: master
+    committer:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    message: |
+      fix: release pipeline
+    sha: 148a95afb203d67b48a07439e8983e0dc73ace64
+  - author:
+      email: chris.mellard@icloud.com
+      name: Chris Mellard
+    branch: master
+    committer:
+      email: chrism@datacom.co.nz
+      name: Chris Mellard
+    message: |
+      feat: added in optional service account to the chart with annotations
+    sha: fa0e642e5e3ba65a1303e6e59eb4c803dfc9d018
+  - author:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    branch: master
+    committer:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    message: |
+      chore: upgrade pipelines
+    sha: 4caef872ad00554c84b08dfe8539882febf08e1c
+  - author:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    branch: master
+    committer:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    message: |
+      chore: upgrade go dependencies
+    sha: 4ed80a238342bd3664b08a0e88d97c5cda8007b6
+  - author:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    branch: master
+    committer:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    message: |
+      chore: upgrade pipelines
+    sha: 29646cffaf6b34485c4a04170382a9a2a5dd8879
+  - author:
+      email: chrism@datacom.co.nz
+      name: Chris Mellard
+    branch: master
+    committer:
+      email: chrism@datacom.co.nz
+      name: Chris Mellard
+    message: |
+      chore: added in cgo_enabled=0 flag that was somehow missing
+    sha: 64d19fa9163839d29739972f4a6e2455d3bc8f73
+  gitHttpUrl: https://github.com/jenkins-x-plugins/kuberhealthy-terraform-drift-check
+  gitOwner: jenkins-x-plugins
+  gitRepository: kuberhealthy-terraform-drift-check
+  name: '{{ .Chart.Name }}'
+  version: 0.1.0
+status: {}
+ 
+{{- end }}

@@ -2,8 +2,8 @@ apiVersion: v2
 name: kuberhealthy-terraform-drift-check
 description: Jenkins X next gen cloud CI / CD platform for Kubernetes
 home: https://jenkins-x.io/
-version: 0.0.1
-appVersion: 0.0.1
+version: 0.1.0
+appVersion: 0.1.0
 icon: https://jenkins-x.github.io/jenkins-x-website/img/profile.png
 sources:
 - https://github.com/jenkins-x-plugins/kuberhealthy-terraform-drift-check
